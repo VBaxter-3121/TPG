@@ -14,8 +14,8 @@ ASpike::ASpike()
 	RootComponent = MyMesh;
 
 	MyCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("DamageBox"));
-	MyCollider->SetupAttachment(RootComponent);
 	MyCollider->OnComponentBeginOverlap.AddDynamic(this, &ASpike::OnOverlapBegin);
+	MyCollider->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
