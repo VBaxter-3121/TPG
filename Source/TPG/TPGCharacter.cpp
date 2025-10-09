@@ -132,3 +132,9 @@ void ATPGCharacter::DoJumpEnd()
 	// signal the character to stop jumping
 	StopJumping();
 }
+
+void ATPGCharacter::KillPlayer()
+{
+	UE_LOG(LogTemp, Display, TEXT("PLAYER SAYS OUCH!"));
+	this->Destroy();
+}

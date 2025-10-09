@@ -2,6 +2,7 @@
 
 
 #include "Spike.h"
+#include "TPGCharacter.h"
 
 // Sets default values
 ASpike::ASpike()
@@ -37,5 +38,13 @@ void ASpike::Tick(float DeltaTime)
 void ASpike::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UE_LOG(LogTemp, Display, TEXT("OUCH!"));
+	ATPGCharacter* PlayerCharacter = Cast<ATPGCharacter>(OtherActor);
+	if (PlayerCharacter)
+	{
+		PlayerCharacter->KillPlayer();
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PLayer Cast Failed, Object is not player"));
+	}
 }
