@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/BoxComponent.h"
 #include "Room.generated.h"
 
 UCLASS()
@@ -18,6 +19,24 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, Category = "My Components|Scenes")
+	USceneComponent* RootScene;
+
+	UPROPERTY(EditAnywhere, Category = "My Components|Scenes")
+	USceneComponent* Entrance;
+
+	UPROPERTY(EditAnywhere, Category = "My Components|Scenes")
+	USceneComponent* Exit;
+
+	UPROPERTY(EditAnywhere, Category = "My Components|Scenes")
+	USceneComponent* Structure;
+
+	UPROPERTY(EditAnywhere, Category = "My Components|Box Collider")
+	UBoxComponent* DoorDetector;
+
+	UPROPERTY(EditAnywhere, Category = "My Components|Meshes")
+	UStaticMeshComponent* Door;
 
 public:	
 	// Called every frame
