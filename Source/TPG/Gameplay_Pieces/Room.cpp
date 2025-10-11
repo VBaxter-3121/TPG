@@ -2,6 +2,7 @@
 
 
 #include "Room.h"
+#include "TPGCharacter.h"
 
 // Sets default values
 ARoom::ARoom()
@@ -51,5 +52,6 @@ void ARoom::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherAct
 	if (!bDoorOpen)
 	{
 		bDoorOpen = true;
+		Door->DestroyComponent();
 	}
 }
