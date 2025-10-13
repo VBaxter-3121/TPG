@@ -10,3 +10,8 @@ MapManager::MapManager()
 MapManager::~MapManager()
 {
 }
+
+void MapManager::SpawnNextRoom(ARoom* CurrentRoom)
+{
+
+}

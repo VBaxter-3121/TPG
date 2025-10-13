@@ -3,6 +3,7 @@
 
 #include "Room.h"
 #include "TPGCharacter.h"
+#include "Public/Static/MapManager.h"
 
 // Sets default values
 ARoom::ARoom()
@@ -22,12 +23,12 @@ ARoom::ARoom()
 	Structure = CreateDefaultSubobject<USceneComponent>(TEXT("Structure"));
 	Structure->SetupAttachment(RootComponent);
 
-	DoorDetector = CreateDefaultSubobject<UBoxComponent>(TEXT("DoorDetector"));
-	DoorDetector->OnComponentBeginOverlap.AddDynamic(this, &ARoom::OnOverlapBegin);
-	DoorDetector->SetupAttachment(RootComponent);
-
 	Door = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Door"));
 	Door->SetupAttachment(RootComponent);
+
+	DoorDetector = CreateDefaultSubobject<UBoxComponent>(TEXT("DoorDetector"));
+	DoorDetector->OnComponentBeginOverlap.AddDynamic(this, &ARoom::OnOverlapBegin);
+	DoorDetector->SetupAttachment(Door);
 
 	bDoorOpen = false;
 }
@@ -54,5 +55,7 @@ void ARoom::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherAct
 		bDoorOpen = true;
 		// Placeholder until animation implemented
 		Door->DestroyComponent();
+
+		MapManager::SpawnNextRoom(this);
 	}
 }
