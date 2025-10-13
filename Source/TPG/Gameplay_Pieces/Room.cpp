@@ -52,6 +52,7 @@ void ARoom::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherAct
 	if (!bDoorOpen)
 	{
 		bDoorOpen = true;
+		// Placeholder until animation implemented
 		Door->DestroyComponent();
 	}
 }
