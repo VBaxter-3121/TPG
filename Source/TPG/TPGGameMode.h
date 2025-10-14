@@ -18,6 +18,9 @@ public:
 	
 	/** Constructor */
 	ATPGGameMode();
+
+protected:
+	virtual void BeginPlay() override;
 };
 
 

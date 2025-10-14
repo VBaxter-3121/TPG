@@ -3,8 +3,13 @@
 
 #include "Static/MapManager.h"
 
-MapManager::MapManager()
+// This line is required to set the memory that will be used for these static variables
+TArray<TSubclassOf<ARoom>> MapManager::RoomPool;
+TArray<FString> MapManager::RoomPaths;
+
+void MapManager::Initialize()
 {
+	UE_LOG(LogTemp, Display, TEXT("MapManager Initializing"));
 	// FPaths::ProjectContentDir() gets the file path of the project's content folder
 	FString FilePath = FPaths::ProjectContentDir() + "/TxtFiles/RoomPaths.txt";
 	FString FileContent;
@@ -41,12 +46,37 @@ MapManager::MapManager()
 	}
 }
 
-MapManager::~MapManager()
+void MapManager::SpawnNextRoom(UWorld* WorldContext, ARoom* CurrentRoom)
 {
-}
+	if (!WorldContext || !CurrentRoom || RoomPool.Num() == 0)
+	{
+		return;
+	}
 
-void MapManager::SpawnNextRoom(ARoom* CurrentRoom)
-{
-	//ARoom NewRoom = 
 	FVector CurrentExit = CurrentRoom->GetExitLocation();
+	int32 RandomIndex = FMath::RandRange(0, RoomPool.Num() - 1);
+
+	FActorSpawnParameters TempParams;
+	// First spawn new room as TemporaryEditorActor to calculate position
+	TempParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	TempParams.bTemporaryEditorActor = true;
+
+	ARoom* TempRoom = WorldContext->SpawnActor<ARoom>(RoomPool[RandomIndex], FVector::ZeroVector, FRotator::ZeroRotator, TempParams);
+
+	// On the first test, Unreal crashed without this validation
+	if (!TempRoom)
+	{
+		return;
+	}
+
+	FVector Offset = TempRoom->GetEntranceLocation() - TempRoom->GetRoomLocation();
+	TempRoom->Destroy();
+
+	// Create real room now that its location has been determined
+	FVector NewRoomSpawnLocation = CurrentExit - Offset;
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	ARoom* NewRoom = WorldContext->SpawnActor<ARoom>(RoomPool[RandomIndex], NewRoomSpawnLocation, FRotator::ZeroRotator, SpawnParams);
 }

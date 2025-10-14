@@ -11,11 +11,10 @@
 class TPG_API MapManager
 {
 public:
-	MapManager();
-	~MapManager();
-	static void SpawnNextRoom(ARoom* CurrentRoom);
+	static void Initialize();
+	static void SpawnNextRoom(UWorld* WorldContext, ARoom* CurrentRoom);
 
 private:
-	TArray<TSubclassOf<ARoom>> RoomPool;
-	TArray<FString> RoomPaths;
+	static TArray<TSubclassOf<ARoom>> RoomPool;
+	static TArray<FString> RoomPaths;
 };

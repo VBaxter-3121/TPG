@@ -50,13 +50,21 @@ void ARoom::Tick(float DeltaTime)
 void ARoom::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (!bDoorOpen)
+	ATPGCharacter* PlayerCharacter = Cast<ATPGCharacter>(OtherActor);
+	if (PlayerCharacter)
 	{
-		bDoorOpen = true;
-		// Placeholder until animation implemented
-		Door->DestroyComponent();
+		if (!bDoorOpen)
+		{
+			bDoorOpen = true;
+			// Placeholder until animation implemented
+			Door->DestroyComponent();
 
-		MapManager::SpawnNextRoom(this);
+			MapManager::SpawnNextRoom(GetWorld(), this);
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player cast failed, object is not player"))
 	}
 }
 

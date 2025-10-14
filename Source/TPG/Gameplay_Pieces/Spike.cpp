@@ -45,6 +45,6 @@ void ASpike::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherAc
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("PLayer Cast Failed, Object is not player"));
+		UE_LOG(LogTemp, Warning, TEXT("Player Cast Failed, Object is not player"));
 	}
 }
