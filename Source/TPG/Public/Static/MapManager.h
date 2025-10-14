@@ -17,4 +17,5 @@ public:
 
 private:
 	TArray<TSubclassOf<ARoom>> RoomPool;
+	TArray<FString> RoomPaths;
 };

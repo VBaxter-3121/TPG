@@ -59,3 +59,20 @@ void ARoom::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherAct
 		MapManager::SpawnNextRoom(this);
 	}
 }
+
+FVector ARoom::GetEntranceLocation() const
+{
+	// This code validates Entrance before accessing it
+	// In the event of an error, the default zero vector is returned
+	return Entrance ? Entrance->GetComponentLocation() : FVector::ZeroVector;
+}
+
+FVector ARoom::GetExitLocation() const
+{
+	return Exit ? Exit->GetComponentLocation() : FVector::ZeroVector;
+}
+
+FVector ARoom::GetRoomLocation() const
+{
+	return RootScene ? RootScene->GetComponentLocation() : FVector::ZeroVector;
+}

@@ -48,4 +48,9 @@ public:
 
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	// Using const means that the method will not modify the actor
+	FVector GetEntranceLocation() const;
+	FVector GetExitLocation() const;
+	FVector GetRoomLocation() const;
 };
