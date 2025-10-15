@@ -1,3 +1,5 @@
 /Game/GameplayPieces/BP_RoomBase.BP_RoomBase
 /Game/GameplayPieces/BP_RoomSimpleA.BP_RoomSimpleA
 /Game/GameplayPieces/BP_RoomSimpleB.BP_RoomSimpleB
+/Game/GameplayPieces/BP_RoomLA.BP_RoomLA
+/Game/GameplayPieces/BP_RoomLB.BP_RoomLB

@@ -80,6 +80,11 @@ FVector ARoom::GetExitLocation() const
 	return Exit ? Exit->GetComponentLocation() : FVector::ZeroVector;
 }
 
+FRotator ARoom::GetExitRotation() const
+{
+	return Exit ? Exit->GetComponentRotation() : FRotator::ZeroRotator;
+}
+
 FVector ARoom::GetRoomLocation() const
 {
 	return RootScene ? RootScene->GetComponentLocation() : FVector::ZeroVector;

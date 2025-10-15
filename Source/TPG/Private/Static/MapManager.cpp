@@ -53,7 +53,8 @@ void MapManager::SpawnNextRoom(UWorld* WorldContext, ARoom* CurrentRoom)
 		return;
 	}
 
-	FVector CurrentExit = CurrentRoom->GetExitLocation();
+	FVector CurrentExitPosition = CurrentRoom->GetExitLocation();
+	FRotator CurrentExitRotation = CurrentRoom->GetExitRotation();
 	int32 RandomIndex = FMath::RandRange(0, RoomPool.Num() - 1);
 
 	FActorSpawnParameters TempParams;
@@ -61,7 +62,7 @@ void MapManager::SpawnNextRoom(UWorld* WorldContext, ARoom* CurrentRoom)
 	TempParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	TempParams.bTemporaryEditorActor = true;
 
-	ARoom* TempRoom = WorldContext->SpawnActor<ARoom>(RoomPool[RandomIndex], FVector::ZeroVector, FRotator::ZeroRotator, TempParams);
+	ARoom* TempRoom = WorldContext->SpawnActor<ARoom>(RoomPool[RandomIndex], FVector::ZeroVector, CurrentExitRotation, TempParams);
 
 	// On the first test, Unreal crashed without this validation
 	if (!TempRoom)
@@ -73,10 +74,10 @@ void MapManager::SpawnNextRoom(UWorld* WorldContext, ARoom* CurrentRoom)
 	TempRoom->Destroy();
 
 	// Create real room now that its location has been determined
-	FVector NewRoomSpawnLocation = CurrentExit - Offset;
+	FVector NewRoomSpawnLocation = CurrentExitPosition - Offset;
 
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-	ARoom* NewRoom = WorldContext->SpawnActor<ARoom>(RoomPool[RandomIndex], NewRoomSpawnLocation, FRotator::ZeroRotator, SpawnParams);
+	ARoom* NewRoom = WorldContext->SpawnActor<ARoom>(RoomPool[RandomIndex], NewRoomSpawnLocation, CurrentExitRotation, SpawnParams);
 }

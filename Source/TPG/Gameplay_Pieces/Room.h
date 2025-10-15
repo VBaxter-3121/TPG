@@ -52,5 +52,6 @@ public:
 	// Using const means that the method will not modify the actor
 	FVector GetEntranceLocation() const;
 	FVector GetExitLocation() const;
+	FRotator GetExitRotation() const;
 	FVector GetRoomLocation() const;
 };
