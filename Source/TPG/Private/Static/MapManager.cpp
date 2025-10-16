@@ -76,6 +76,8 @@ void MapManager::SpawnNextRoom(UWorld* WorldContext, ARoom* CurrentRoom)
 	// Create real room now that its location has been determined
 	FVector NewRoomSpawnLocation = CurrentExitPosition - Offset;
 
+	
+
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
