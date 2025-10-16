@@ -10,6 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Kismet/GameplayStatics.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -136,5 +137,14 @@ void ATPGCharacter::DoJumpEnd()
 void ATPGCharacter::KillPlayer()
 {
 	UE_LOG(LogTemp, Display, TEXT("PLAYER SAYS OUCH!"));
-	this->Destroy();
+	GetCharacterMovement()->DisableMovement();
+	GetMesh()->SetAllBodiesSimulatePhysics(true);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+	FTimerHandle TimerHandle;
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &ATPGCharacter::ChangeToGameOverLevel, 3.0f, false);
+}
+
+void ATPGCharacter::ChangeToGameOverLevel()
+{
+	UGameplayStatics::OpenLevel(this, FName("L_GameOver"));
 }

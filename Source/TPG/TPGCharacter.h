@@ -95,5 +95,9 @@ public:
 
 	UFUNCTION()
 	void KillPlayer();
+
+private:
+	UFUNCTION()
+	void ChangeToGameOverLevel();
 };
 
