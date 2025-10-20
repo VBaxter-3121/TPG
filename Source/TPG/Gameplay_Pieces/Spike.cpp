@@ -23,8 +23,6 @@ ASpike::ASpike()
 void ASpike::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	Super::BeginPlay();
 	UE_LOG(LogTemp, Display, TEXT("HELLO CPP!"));
 }
 

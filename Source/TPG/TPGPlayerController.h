@@ -7,6 +7,7 @@
 #include "TPGPlayerController.generated.h"
 
 class UInputMappingContext;
+class UInputAction;
 
 /**
  *  Basic PlayerController class for a third person game
@@ -25,5 +26,20 @@ protected:
 
 	/** Input mapping context setup */
 	virtual void SetupInputComponent() override;
+	virtual void BeginPlay() override;
 
+// Add a forward declaration
+
+private:
+	void PauseToggle();
+
+protected:
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* PauseAction;
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
+	TSubclassOf<class UUserWidget> PauseUIClass;
+	UPROPERTY()
+	class UUserWidget* PauseUIInstance;
 };
