@@ -58,7 +58,7 @@ void ATPGPlayerController::PauseToggle()
 		{
 			PauseUIInstance->SetVisibility(ESlateVisibility::Hidden);
 			bShowMouseCursor = false;
-			SetInputMode(FInputModeGameAndUI());
+			SetInputMode(FInputModeGameOnly());
 			if (MyPawn)
 			{
 				MyPawn->EnableInput(this);

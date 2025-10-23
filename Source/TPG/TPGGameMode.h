@@ -21,6 +21,20 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+private:
+	int32 Score;
+
+public:
+	UFUNCTION()
+	void AddScore(int32 scoreToAdd);
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
+	TSubclassOf<UUserWidget> HUDUIClass;
+
+	UPROPERTY()
+	UUserWidget* HUDUIInstance;
 };
 
 
